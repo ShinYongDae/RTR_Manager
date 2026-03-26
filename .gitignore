@@ -1,0 +1,11 @@
+Debug/
+ipch/
+x64/
+RTR_Manager.sdf
+RTR_Manager.VC.db
+RTR_Manager/Debug/
+RTR_Manager/x64/
+.vs/
+RTR_Manager/RTR_Manager.aps
+
+
