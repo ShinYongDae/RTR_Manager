@@ -5,21 +5,24 @@
 #pragma once
 
 #include "RTR_ManagerDoc.h"
+#include "DlgItsOrigin.h"
 #include "DlgPunchingTorque.h"
 
 class CRTR_ManagerView : public CFormView
 {
 private:
+	CDlgItsOrigin* m_pDlgItsOrigin;
 	CDlgPunchingTorque* m_pDlgPunchingTorque;
 	int m_nCurTab;
 	CFont m_FontOfTabCtrl;
 	BOOL m_bEnableWnd;
 
-	void InitTab();
 	void ShowDlg(int nId);
 	void HideAllDlg();
 	//void EnableWnd(BOOL bEnable);
+	void InitTab();
 	void Init();
+	void InitDlg();
 
 protected: // serialization에서만 만들어집니다.
 	CRTR_ManagerView();

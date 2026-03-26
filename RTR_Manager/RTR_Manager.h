@@ -9,6 +9,7 @@
 
 #include "resource.h"       // 주 기호입니다.
 
+#define LOG_PATH _T("C:\\R2RSet\\Log\\")
 
 // CRTR_ManagerApp:
 // 이 클래스의 구현에 대해서는 RTR_Manager.cpp을 참조하십시오.

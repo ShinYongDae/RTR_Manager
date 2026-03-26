@@ -1,7 +1,7 @@
 #pragma once
 
 #define LIST_PATH _T("C:\\R2RSet\\PunchingTorqueList.ini")
-#define LOG_PATH _T("C:\\R2RSet\\Log\\")
+//#define LOG_PATH _T("C:\\R2RSet\\Log\\")
 
 #define THICKNESS_0 _T("설정없음")
 #define THICKNESS_1 _T("얇은 두께")
@@ -123,25 +123,25 @@ struct stThick
 	}
 };
 
-struct stModel
+struct stModelTorque
 {
 	CString sModel;
 	int nThick;			// 0 ~ 3 :  설정없음[0], 얇은 두께[1], 중간 두께[2], 두꺼운 두께[3]
 
-	stModel()
+	stModelTorque()
 	{
 		sModel = _T("");
 		nThick = 0;
 	}
 };
 
-struct stList
+struct stListTorque
 {
 	int nTotalMachines;
 	int nTotalThicknesses;
 	int *pUnitList;		// 호기 번호 List
 	int nTotalModels;
-	stModel *pModel;
+	stModelTorque *pModel;
 	stThick *pThick;	// 두께별 기본 토크값 (기본+3단계) : 설정없음[0], 얇은 두께[1], 중간 두께[2], 두꺼운 두께[3]
 
 	int i, nTotUnits;
@@ -150,7 +150,7 @@ struct stList
 	TCHAR *token;
 	CString sModelIdx;
 
-	stList()
+	stListTorque()
 	{
 		nTotalMachines = 0;
 		nTotalThicknesses = 0;
@@ -168,7 +168,7 @@ struct stList
 
 		LoadList();
 	}
-	~stList()
+	~stListTorque()
 	{
 		if (pUnitList)
 		{
@@ -290,7 +290,7 @@ struct stList
 			if (pModel)
 				delete[] pModel;
 
-			pModel = new stModel[nTotalModels];
+			pModel = new stModelTorque[nTotalModels];
 		}
 	}
 };
@@ -310,7 +310,7 @@ class CDlgPunchingTorque : public CDialog
 {
 	DECLARE_DYNAMIC(CDlgPunchingTorque)
 private:
-	stList m_stList;
+	stListTorque m_stListTorque;
 	int m_nTotalUnit, m_nTotalModel, m_nTotalThick;
 	CString m_sPathCamSpecDir, m_sModel;
 	int m_nUnit;

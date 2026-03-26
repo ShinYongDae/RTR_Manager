@@ -93,15 +93,15 @@ void CDlgPunchingTorque::InitList()
 	m_List.InsertColumn(1, _T("¸ðµ¨"), LVCFMT_CENTER, 140);//LVCFMT_LEFT
 	m_List.InsertColumn(2, _T("µÎ²²±¸ºÐ"), LVCFMT_CENTER, 100);
 
-	m_nTotalUnit = m_stList.nTotalMachines;
+	m_nTotalUnit = m_stListTorque.nTotalMachines;
 	if (m_nTotalUnit < 1)
 		return;
 
 	for (nIdxUnit = 0; nIdxUnit < m_nTotalUnit; nIdxUnit++)
 	{
-		strItem.Format(_T("#%d ÁÂ"), m_stList.pUnitList[nIdxUnit]);
+		strItem.Format(_T("#%d ÁÂ"), m_stListTorque.pUnitList[nIdxUnit]);
 		m_List.InsertColumn(3 + (nIdxUnit * 2), strItem, LVCFMT_CENTER, 80);
-		strItem.Format(_T("#%d ¿ì"), m_stList.pUnitList[nIdxUnit]);
+		strItem.Format(_T("#%d ¿ì"), m_stListTorque.pUnitList[nIdxUnit]);
 		m_List.InsertColumn(4 + (nIdxUnit * 2), strItem, LVCFMT_CENTER, 80);
 	}
 }
@@ -116,7 +116,7 @@ void CDlgPunchingTorque::DispList()
 	m_List.DeleteAllItems();
 	Sleep(30);
 
-	for (nIdxModel = 0; nIdxModel < m_stList.nTotalModels; nIdxModel++)
+	for (nIdxModel = 0; nIdxModel < m_stListTorque.nTotalModels; nIdxModel++)
 	{
 		LVITEM item;
 		::ZeroMemory(&item, sizeof(item));
@@ -131,12 +131,12 @@ void CDlgPunchingTorque::DispList()
 		m_List.InsertItem(&item);
 		// ¸ðµ¨
 		item.iSubItem = 1;
-		_stprintf(tChar, _T("%s"), m_stList.pModel[nIdxModel].sModel);
+		_stprintf(tChar, _T("%s"), m_stListTorque.pModel[nIdxModel].sModel);
 		item.pszText = tChar;
 		m_List.SetItem(&item);
 		// µÎ²²±¸ºÐ
 		item.iSubItem = 2;
-		_stprintf(tChar, _T("%s"), GetThicknessName(m_stList.pModel[nIdxModel].nThick));
+		_stprintf(tChar, _T("%s"), GetThicknessName(m_stListTorque.pModel[nIdxModel].nThick));
 		item.pszText = tChar;
 		m_List.SetItem(&item);
 
@@ -144,13 +144,13 @@ void CDlgPunchingTorque::DispList()
 		{
 			// "#%d ÁÂ" - Torque
 			item.iSubItem = 3 + (nIdxUnit * 2);
-			sVal.Format(_T("%.3f"), m_stList.pThick[m_stList.pModel[nIdxModel].nThick].pUnit[nIdxUnit].Torq.dLeft);
+			sVal.Format(_T("%.3f"), m_stListTorque.pThick[m_stListTorque.pModel[nIdxModel].nThick].pUnit[nIdxUnit].Torq.dLeft);
 			_stprintf(tChar, _T("%s"), sVal);
 			item.pszText = tChar;
 			m_List.SetItem(&item);
 			// "#%d ¿ì" - Torque
 			item.iSubItem = 4 + (nIdxUnit * 2);
-			sVal.Format(_T("%.3f"), m_stList.pThick[m_stList.pModel[nIdxModel].nThick].pUnit[nIdxUnit].Torq.dRight);
+			sVal.Format(_T("%.3f"), m_stListTorque.pThick[m_stListTorque.pModel[nIdxModel].nThick].pUnit[nIdxUnit].Torq.dRight);
 			_stprintf(tChar, _T("%s"), sVal);
 			item.pszText = tChar;
 			m_List.SetItem(&item);
@@ -158,7 +158,7 @@ void CDlgPunchingTorque::DispList()
 
 		//item.state = LVIS_SELECTED | LVIS_FOCUSED;
 		//m_List.InsertItem(&item);
-		//m_List.InsertItem(i, m_stList.pModel[i].sModel, 0);
+		//m_List.InsertItem(i, m_stListTorque.pModel[i].sModel, 0);
 	}
 
 	m_List.ModifyStyle(LVS_TYPEMASK, LVS_REPORT);
@@ -425,20 +425,20 @@ int CDlgPunchingTorque::SearchUnit(int nUnit)
 	TCHAR *token;
 	int nListUnit;
 
-	m_nTotalUnit = m_stList.nTotalMachines;
+	m_nTotalUnit = m_stListTorque.nTotalMachines;
 
 
 	if (0 < ::GetPrivateProfileString(_T("Info"), _T("Unit_Nums"), NULL, szData, sizeof(szData), LIST_PATH))
 	{
 		token = _tcstok(szData, sep);
-		for (nIdxUnit = 0; nIdxUnit < m_stList.nTotalMachines; nIdxUnit++)
+		for (nIdxUnit = 0; nIdxUnit < m_stListTorque.nTotalMachines; nIdxUnit++)
 		{
 			nListUnit = _ttoi(token);
 
 			if (nListUnit == nUnit)
 				return nIdxUnit;
 
-			if (nIdxUnit < m_stList.nTotalMachines - 1)
+			if (nIdxUnit < m_stListTorque.nTotalMachines - 1)
 				token = _tcstok(NULL, sep);
 		}
 	}
@@ -449,13 +449,13 @@ int CDlgPunchingTorque::SearchUnit(int nUnit)
 void CDlgPunchingTorque::InsertModel(CString sModel, int nThickness)
 {
 	CString sModelIdx, strData;
-	int nModelIdx = m_stList.nTotalModels;
+	int nModelIdx = m_stListTorque.nTotalModels;
 	sModelIdx.Format(_T("%d"), nModelIdx);
 	strData.Format(_T("%s,%d"), sModel, nThickness);
 	::WritePrivateProfileString(_T("Model"), sModelIdx, strData, LIST_PATH);
-	m_stList.nTotalModels++;
+	m_stListTorque.nTotalModels++;
 
-	strData.Format(_T("%d"), m_stList.nTotalModels);
+	strData.Format(_T("%d"), m_stListTorque.nTotalModels);
 	::WritePrivateProfileString(_T("Info"), _T("Total_Models"), strData, LIST_PATH);
 }
 
@@ -487,7 +487,7 @@ BOOL CDlgPunchingTorque::UpdateUnit(int nUnit, int nThickness, double dTorqL, do
 void CDlgPunchingTorque::InsertUnit(int nUnit, int nThickness, double dTorqL, double dTorqR)
 {
 	CString sUnits, strItem, strData, strTorq;
-	m_nTotalUnit = m_stList.nTotalMachines;
+	m_nTotalUnit = m_stListTorque.nTotalMachines;
 
 	if (m_nTotalUnit < 0)
 		return;
@@ -573,7 +573,7 @@ int CDlgPunchingTorque::SearchModel(CString sModel)
 	TCHAR *token;
 	TCHAR sep[] = { _T(",;\r\n\t") };
 
-	for (nModelIdx = 0; nModelIdx < m_stList.nTotalModels; nModelIdx++)
+	for (nModelIdx = 0; nModelIdx < m_stListTorque.nTotalModels; nModelIdx++)
 	{
 		sModelIdx.Format(_T("%d"), nModelIdx);
 		if (0 < ::GetPrivateProfileString(_T("Model"), sModelIdx, NULL, szData, sizeof(szData), LIST_PATH))
@@ -669,7 +669,7 @@ void CDlgPunchingTorque::Log(CString strMsg, int nType)
 
 void CDlgPunchingTorque::UpdateList()
 {
-	m_stList.ReloadList();
+	m_stListTorque.ReloadList();
 	DispList();
 }
 
@@ -927,7 +927,7 @@ BOOL CDlgPunchingTorque::DeleteModel(CString sModel)
 	if (nDelIdx < 0)
 		return FALSE;
 
-	int nModelTot = m_stList.nTotalModels;
+	int nModelTot = m_stListTorque.nTotalModels;
 
 	TCHAR szData[MAX_PATH];
 	TCHAR *token;
@@ -953,13 +953,13 @@ BOOL CDlgPunchingTorque::DeleteModel(CString sModel)
 		}
 	}
 
-	m_stList.nTotalModels--;
+	m_stListTorque.nTotalModels--;
 
-	sModelIdx.Format(_T("%d"), m_stList.nTotalModels);
+	sModelIdx.Format(_T("%d"), m_stListTorque.nTotalModels);
 	sData.Format(_T(""));
 	::WritePrivateProfileString(_T("Model"), sModelIdx, sData, LIST_PATH);
 
-	sData.Format(_T("%d"), m_stList.nTotalModels);
+	sData.Format(_T("%d"), m_stListTorque.nTotalModels);
 	::WritePrivateProfileString(_T("Info"), _T("Total_Models"), sData, LIST_PATH);
 
 	return TRUE;

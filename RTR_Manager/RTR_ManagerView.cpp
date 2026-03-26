@@ -34,12 +34,18 @@ CRTR_ManagerView::CRTR_ManagerView()
 	: CFormView(IDD_RTR_MANAGER_FORM)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-	m_pDlgPunchingTorque = NULL;
 	m_bEnableWnd = FALSE;
+	m_pDlgItsOrigin = NULL;
+	m_pDlgPunchingTorque = NULL;
 }
 
 CRTR_ManagerView::~CRTR_ManagerView()
 {
+	if (m_pDlgItsOrigin != NULL)
+	{
+		delete m_pDlgItsOrigin;
+		m_pDlgItsOrigin = NULL;
+	}
 	if (m_pDlgPunchingTorque != NULL)
 	{
 		delete m_pDlgPunchingTorque;
@@ -100,6 +106,21 @@ void CRTR_ManagerView::ShowDlg(int nId)
 	switch (nId)
 	{
 	case 0:
+		if (!m_pDlgItsOrigin)
+		{
+			m_pDlgItsOrigin = new CDlgItsOrigin(this);
+			if (m_pDlgItsOrigin->GetSafeHwnd() == 0)
+			{
+				m_pDlgItsOrigin->ShowWindow(SW_SHOW);
+			}
+		}
+		else
+		{
+			RefreshDlg();
+			m_pDlgItsOrigin->ShowWindow(SW_SHOW);
+		}
+		break;
+	case 1:
 		if (!m_pDlgPunchingTorque)
 		{
 			m_pDlgPunchingTorque = new CDlgPunchingTorque(this);
@@ -115,7 +136,7 @@ void CRTR_ManagerView::ShowDlg(int nId)
 			m_pDlgPunchingTorque->ShowWindow(SW_SHOW);
 		}
 		break;
-	case 1:
+	case 2:
 		break;
 	}
 	RefreshDlg();
@@ -123,17 +144,16 @@ void CRTR_ManagerView::ShowDlg(int nId)
 
 void CRTR_ManagerView::HideAllDlg()
 {
+	if (m_pDlgItsOrigin && m_pDlgItsOrigin->GetSafeHwnd())
+	{
+		if (m_pDlgItsOrigin->IsWindowVisible())
+			m_pDlgItsOrigin->ShowWindow(SW_HIDE);
+	}
 	if (m_pDlgPunchingTorque && m_pDlgPunchingTorque->GetSafeHwnd())
 	{
 		if (m_pDlgPunchingTorque->IsWindowVisible())
 			m_pDlgPunchingTorque->ShowWindow(SW_HIDE);
 	}
-
-	//if (m_pDlgSetItsOrigin && m_pDlgSetItsOrigin->GetSafeHwnd())
-	//{
-	//	if (m_pDlgSetItsOrigin->IsWindowVisible())
-	//		m_pDlgSetItsOrigin->ShowWindow(SW_HIDE);
-	//}
 }
 
 void CRTR_ManagerView::RefreshDlg()
@@ -155,23 +175,20 @@ void CRTR_ManagerView::RefreshDlg()
 	GetDlgItem(IDC_STATIC_WND_POS)->GetWindowRect(&rtTab);
 	ScreenToClient(&rtTab);
 
-	if (m_pDlgPunchingTorque && m_pDlgPunchingTorque->GetSafeHwnd())
+	if (m_pDlgItsOrigin && m_pDlgItsOrigin->GetSafeHwnd())
 	{
-		m_pDlgPunchingTorque->GetClientRect(rtDlg0);
+		m_pDlgItsOrigin->GetClientRect(rtDlg0);
 		rtDlg.left = rtForm.left + (nXOffetViewForm+cxEdge) + rtTab.left;
 		rtDlg.top = rtForm.top + (nHeithtSystemBar+nHeightMenuBar+nYOffetViewForm+cyEdge) + rtTab.top;
-		m_pDlgPunchingTorque->SetWindowPos(NULL, rtDlg.left, rtDlg.top, rtDlg0.Width(), rtDlg0.Height(), SWP_NOZORDER | SWP_NOACTIVATE);
+		m_pDlgItsOrigin->SetWindowPos(NULL, rtDlg.left, rtDlg.top, rtDlg0.Width(), rtDlg0.Height(), SWP_NOZORDER | SWP_NOACTIVATE);
 	}
-	//if (m_pDlgSetItsOrigin && m_pDlgSetItsOrigin->GetSafeHwnd())
-	//{
-	//	//if (m_pDlgSetItsOrigin->IsWindowVisible())
-	//	{
-	//		m_pDlgSetItsOrigin->GetClientRect(rtDlg1);
-	//		rtDlg.left = rtForm.left + rtTab.left;
-	//		rtDlg.top = rtForm.top + nHeithtSystemBar + rtTab.top;
-	//		m_pDlgSetItsOrigin->SetWindowPos(NULL, rtDlg.left, rtDlg.top, rtDlg1.Width(), rtDlg1.Height(), SWP_NOZORDER | SWP_NOACTIVATE);
-	//	}
-	//}
+	if (m_pDlgPunchingTorque && m_pDlgPunchingTorque->GetSafeHwnd())
+	{
+		m_pDlgPunchingTorque->GetClientRect(rtDlg1);
+		rtDlg.left = rtForm.left + (nXOffetViewForm+cxEdge) + rtTab.left;
+		rtDlg.top = rtForm.top + (nHeithtSystemBar+nHeightMenuBar+nYOffetViewForm+cyEdge) + rtTab.top;
+		m_pDlgPunchingTorque->SetWindowPos(NULL, rtDlg.left, rtDlg.top, rtDlg1.Width(), rtDlg1.Height(), SWP_NOZORDER | SWP_NOACTIVATE);
+	}
 }
 
 //void CRTR_ManagerView::EnableWnd(BOOL bEnable)
@@ -194,6 +211,33 @@ void CRTR_ManagerView::RefreshDlg()
 void CRTR_ManagerView::Init()
 {
 	InitTab();
+	InitDlg();
+
+	m_nCurTab = 0;
+	m_TabCtrl.HighlightItem(m_nCurTab, TRUE);
+	ShowDlg(m_nCurTab);
+}
+
+void CRTR_ManagerView::InitDlg()
+{
+	if (!m_pDlgItsOrigin)
+	{
+		m_pDlgItsOrigin = new CDlgItsOrigin(this);
+		if (m_pDlgItsOrigin->GetSafeHwnd() == 0)
+		{
+			m_pDlgItsOrigin->Create();
+			m_pDlgItsOrigin->ShowWindow(SW_HIDE);
+		}
+	}
+	if (!m_pDlgPunchingTorque)
+	{
+		m_pDlgPunchingTorque = new CDlgPunchingTorque(this);
+		if (m_pDlgPunchingTorque->GetSafeHwnd() == 0)
+		{
+			m_pDlgPunchingTorque->Create();
+			m_pDlgPunchingTorque->ShowWindow(SW_HIDE);
+		}
+	}
 }
 
 void CRTR_ManagerView::OnShowWindow(BOOL bShow, UINT nStatus)
@@ -203,15 +247,15 @@ void CRTR_ManagerView::OnShowWindow(BOOL bShow, UINT nStatus)
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 	if (bShow)
 	{
-		//InitTab();
 	}
 }
 
 void CRTR_ManagerView::InitTab()	// Tab Control 초기화
 {
-	CString sTabCaption[2];
+	CString sTabCaption[3];
 	sTabCaption[0] = _T("ITS Origin");
 	sTabCaption[1] = _T("Torque");
+	sTabCaption[2] = _T("Laser");
 
 	// Tab Control의 폰트 변경.
 	LOGFONT lf;
@@ -233,10 +277,8 @@ void CRTR_ManagerView::InitTab()	// Tab Control 초기화
 	item.pszText = (LPWSTR)(LPCWSTR)sTabCaption[1];
 	m_TabCtrl.InsertItem(1, &item);
 
-	m_nCurTab = 0;
-	m_TabCtrl.HighlightItem(m_nCurTab, TRUE);
-
-	ShowDlg(m_nCurTab);
+	item.pszText = (LPWSTR)(LPCWSTR)sTabCaption[2];
+	m_TabCtrl.InsertItem(2, &item);
 }
 
 

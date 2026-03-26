@@ -7,6 +7,7 @@
 #define IDR_MAINFRAME                   128
 #define IDR_RTR_ManagerTYPE             130
 #define IDD_DIALOG1                     311
+#define IDD_DLG_ITS_ORIGIN              311
 #define IDD_DLG_PUNCHING_TORQUE         312
 #define IDD_DIALOG3                     313
 #define IDC_STATIC_WND_POS              1000
@@ -17,8 +18,10 @@
 #define IDC_EDIT_TORQUE_LEFT            1004
 #define IDC_EDIT_TORQUE_RIGHT           1005
 #define IDC_COMBO_THICK_MODEL           1006
+#define IDC_COMBO_ITS_CASE              1006
 #define IDC_BUTTON_SAVE_UNIT            1007
 #define IDC_BUTTON_SAVE_MODEL           1008
+#define IDC_BUTTON_SAVE_ITS_CASE        1008
 #define IDC_STATIC_UNIT                 1009
 #define IDC_COMBO_THICK_UNIT            1010
 #define IDC_BUTTON_REFRESH_MODEL        1011

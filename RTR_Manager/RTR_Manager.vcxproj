@@ -181,6 +181,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DlgItsOrigin.h" />
     <ClInclude Include="DlgPunchingTorque.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DlgItsOrigin.cpp" />
     <ClCompile Include="DlgPunchingTorque.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="RTR_Manager.cpp" />
