@@ -10,6 +10,7 @@
 #define IDD_DLG_ITS_ORIGIN              311
 #define IDD_DLG_PUNCHING_TORQUE         312
 #define IDD_DIALOG3                     313
+#define IDD_DLG_LASER_SETTING           313
 #define IDC_STATIC_WND_POS              1000
 #define IDC_TAB1                        1001
 #define IDC_LIST1                       1001
