@@ -134,7 +134,7 @@ BEGIN
     LTEXT           "",IDC_STATIC_WND_POS,2,15,654,436,WS_BORDER
 END
 
-IDD_DLG_ITS_ORIGIN DIALOGEX 0, 0, 347, 459
+IDD_DLG_ITS_ORIGIN DIALOGEX 0, 0, 754, 468
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
@@ -148,6 +148,7 @@ BEGIN
     PUSHBUTTON      "¸ðµ¨\rÃ£±â",IDC_BUTTON_FIND_MODEL,98,421,51,28,BS_MULTILINE
     LTEXT           "Ã£À» ¸ðµ¨¸í",IDC_STATIC,11,422,47,9
     PUSHBUTTON      "¸ðµ¨\r»èÁ¦",IDC_BUTTON_DELETE_MODEL,286,421,51,28,BS_MULTILINE
+    CONTROL         IDB_BITMAP1,IDC_STATIC_CASE,"Static",SS_BITMAP,343,41,404,304
 END
 
 IDD_DLG_PUNCHING_TORQUE DIALOGEX 0, 0, 754, 468
@@ -245,9 +246,9 @@ BEGIN
     IDD_DLG_ITS_ORIGIN, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 340
+        RIGHTMARGIN, 747
         TOPMARGIN, 7
-        BOTTOMMARGIN, 452
+        BOTTOMMARGIN, 461
     END
 
     IDD_DLG_PUNCHING_TORQUE, DIALOG
@@ -292,6 +293,14 @@ IDD_DLG_LASER_SETTING AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "C:\\Users\\free\\Downloads\\Git\\RTR_Manager\\BMP\\Case.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

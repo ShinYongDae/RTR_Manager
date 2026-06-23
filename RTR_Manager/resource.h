@@ -11,11 +11,13 @@
 #define IDD_DLG_PUNCHING_TORQUE         312
 #define IDD_DIALOG3                     313
 #define IDD_DLG_LASER_SETTING           313
+#define IDB_BITMAP1                     317
 #define IDC_STATIC_WND_POS              1000
 #define IDC_TAB1                        1001
 #define IDC_LIST1                       1001
 #define IDC_COMBO_MODEL                 1002
 #define IDC_EDIT_UNIT                   1003
+#define IDC_STATIC_CASE                 1003
 #define IDC_EDIT_TORQUE_LEFT            1004
 #define IDC_EDIT_TORQUE_RIGHT           1005
 #define IDC_COMBO_THICK_MODEL           1006
@@ -34,9 +36,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        317
+#define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1002
+#define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

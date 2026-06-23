@@ -213,6 +213,7 @@
     <None Include="res\RTR_Manager.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\BMP\Case.bmp" />
     <Image Include="res\RTR_Manager.ico" />
     <Image Include="res\RTR_ManagerDoc.ico" />
   </ItemGroup>

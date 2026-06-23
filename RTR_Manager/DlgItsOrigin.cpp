@@ -152,6 +152,18 @@ CString CDlgItsOrigin::GetItsCaseLabel(int nIdx) // 좌우[0], 좌하[1], 우상[2], �
 	case 3:
 		sName = CASE_3;
 		break;
+	case 4:
+		sName = CASE_4;
+		break;
+	case 5:
+		sName = CASE_5;
+		break;
+	case 6:
+		sName = CASE_6;
+		break;
+	case 7:
+		sName = CASE_7;
+		break;
 	default:
 		sName = CASE_0;
 		break;
@@ -300,7 +312,7 @@ void CDlgItsOrigin::OnBnClickedButtonSaveItsCase()
 	}
 
 	CString sMsg;
-	sMsg.Format(_T("%s 모델의 ITS원점 CASE를 case %d로 변경하시겠습니까?"), m_sModel, m_nCase);
+	sMsg.Format(_T("%s 모델의 ITS원점 CASE를 case %s로 변경하시겠습니까?"), m_sModel, GetCaseString(m_nCase));
 	if (IDNO == MessageBox(sMsg, _T("주의"), MB_YESNO | MB_ICONQUESTION))
 	{
 		return;
@@ -468,6 +480,10 @@ void CDlgItsOrigin::ModifyItsOriginCaseData()
 	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->InsertString(1, GetItsCaseLabel(1));
 	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->InsertString(2, GetItsCaseLabel(2));
 	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->InsertString(3, GetItsCaseLabel(3));
+	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->InsertString(4, GetItsCaseLabel(4));
+	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->InsertString(5, GetItsCaseLabel(5));
+	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->InsertString(6, GetItsCaseLabel(6));
+	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->InsertString(7, GetItsCaseLabel(7));
 }
 
 void CDlgItsOrigin::ModifyItsOriginCaseData(int nCase)
@@ -477,6 +493,43 @@ void CDlgItsOrigin::ModifyItsOriginCaseData(int nCase)
 
 	int nIndex = nCase;
 	((CComboBox*)GetDlgItem(IDC_COMBO_ITS_CASE))->SetCurSel(nIndex);
+}
+
+CString CDlgItsOrigin::GetCaseString(int nCase)
+{
+	CString sCase = _T("");
+	switch (nCase)
+	{
+	case 0:
+		sCase = CASE_0;
+		break;
+	case 1:
+		sCase = CASE_1;
+		break;
+	case 2:
+		sCase = CASE_2;
+		break;
+	case 3:
+		sCase = CASE_3;
+		break;
+	case 4:
+		sCase = CASE_4;
+		break;
+	case 5:
+		sCase = CASE_5;
+		break;
+	case 6:
+		sCase = CASE_6;
+		break;
+	case 7:
+		sCase = CASE_7;
+		break;
+	default:
+		sCase = CASE_0;
+		break;
+	}
+
+	return sCase;
 }
 
 void CDlgItsOrigin::OnSelchangeComboItsCase()
@@ -504,6 +557,18 @@ void CDlgItsOrigin::OnSelchangeComboItsCase()
 
 	if (sCase == CASE_3)
 		m_nCase = 3;
+
+	if (sCase == CASE_4)
+		m_nCase = 4;
+
+	if (sCase == CASE_5)
+		m_nCase = 5;
+
+	if (sCase == CASE_6)
+		m_nCase = 6;
+
+	if (sCase == CASE_7)
+		m_nCase = 7;
 }
 
 void CDlgItsOrigin::OnBnClickedButtonFindModel()

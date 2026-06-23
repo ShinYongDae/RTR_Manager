@@ -5,10 +5,14 @@
 //#define LOG_PATH _T("C:\\R2RSet\\Log\\")
 
 
-#define CASE_0 _T("1 [謝鼻]")
-#define CASE_1 _T("2 [謝ж]")
-#define CASE_2 _T("3 [辦鼻]")
-#define CASE_3 _T("4 [辦ж]")
+#define CASE_0 _T("1-0 [路鼻,謝鼻]")
+#define CASE_1 _T("2-0 [路鼻,謝ж]")
+#define CASE_2 _T("3-0 [路ж,辦鼻]")
+#define CASE_3 _T("4-0 [路ж,辦ж]")
+#define CASE_4 _T("1-1 [路鼻,辦鼻]")
+#define CASE_5 _T("2-1 [路鼻,辦ж]")
+#define CASE_6 _T("3-1 [路ж,謝鼻]")
+#define CASE_7 _T("4-1 [路ж,謝ж]")
 
 struct stModelItsOrigin
 {
@@ -143,6 +147,7 @@ private:
 	BOOL DirectoryExists(LPCTSTR szPath);
 	void StringToChar(CString str, char* pCh); // char* returned must be deleted... 
 
+	CString GetCaseString(int nCase);
 
 public:
 	CDlgItsOrigin(CWnd* pParent = NULL);   // ル遽 儅撩濠殮棲棻.
