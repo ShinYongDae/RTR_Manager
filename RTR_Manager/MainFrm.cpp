@@ -75,7 +75,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
 	cs.style &= ~FWS_ADDTOTITLE;
-	cs.lpszName = _T("해성디에스용 GigaVis RTR 통합 Manager (version: 1.0.0) ;  Update Date(2026,06,23)"); // 타이틀 설정
+	cs.lpszName = _T("해성디에스용 GigaVis RTR 통합 Manager (version: 1.1.0) ;  Update Date(2026,06,24)"); // 타이틀 설정
 	cs.cx = 1350;	// 초기 가로 크기
 	cs.cy = 950;	// 초기 세로 크기
 
