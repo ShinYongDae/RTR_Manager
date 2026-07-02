@@ -37,6 +37,7 @@ CRTR_ManagerView::CRTR_ManagerView()
 	m_bEnableWnd = FALSE;
 	m_pDlgItsOrigin = NULL;
 	m_pDlgPunchingTorque = NULL;
+	m_pDlgLaserSetting = NULL;
 }
 
 CRTR_ManagerView::~CRTR_ManagerView()
@@ -50,6 +51,11 @@ CRTR_ManagerView::~CRTR_ManagerView()
 	{
 		delete m_pDlgPunchingTorque;
 		m_pDlgPunchingTorque = NULL;
+	}
+	if (m_pDlgLaserSetting != NULL)
+	{
+		delete m_pDlgLaserSetting;
+		m_pDlgLaserSetting = NULL;
 	}
 }
 
@@ -137,6 +143,20 @@ void CRTR_ManagerView::ShowDlg(int nId)
 		}
 		break;
 	case 2:
+		if (!m_pDlgLaserSetting)
+		{
+			m_pDlgLaserSetting = new CDlgLaserSetting(this);
+			if (m_pDlgLaserSetting->GetSafeHwnd() == 0)
+			{
+				m_pDlgLaserSetting->Create();
+				m_pDlgLaserSetting->ShowWindow(SW_SHOW);
+			}
+		}
+		else
+		{
+			RefreshDlg();
+			m_pDlgLaserSetting->ShowWindow(SW_SHOW);
+		}
 		break;
 	}
 	RefreshDlg();
@@ -153,6 +173,11 @@ void CRTR_ManagerView::HideAllDlg()
 	{
 		if (m_pDlgPunchingTorque->IsWindowVisible())
 			m_pDlgPunchingTorque->ShowWindow(SW_HIDE);
+	}
+	if (m_pDlgLaserSetting && m_pDlgLaserSetting->GetSafeHwnd())
+	{
+		if (m_pDlgLaserSetting->IsWindowVisible())
+			m_pDlgLaserSetting->ShowWindow(SW_HIDE);
 	}
 }
 
@@ -188,6 +213,13 @@ void CRTR_ManagerView::RefreshDlg()
 		rtDlg.left = rtForm.left + (nXOffetViewForm+cxEdge) + rtTab.left;
 		rtDlg.top = rtForm.top + (nHeithtSystemBar+nHeightMenuBar+nYOffetViewForm+cyEdge) + rtTab.top;
 		m_pDlgPunchingTorque->SetWindowPos(NULL, rtDlg.left, rtDlg.top, rtDlg1.Width(), rtDlg1.Height(), SWP_NOZORDER | SWP_NOACTIVATE);
+	}
+	if (m_pDlgLaserSetting && m_pDlgLaserSetting->GetSafeHwnd())
+	{
+		m_pDlgLaserSetting->GetClientRect(rtDlg1);
+		rtDlg.left = rtForm.left + (nXOffetViewForm+cxEdge) + rtTab.left;
+		rtDlg.top = rtForm.top + (nHeithtSystemBar+nHeightMenuBar+nYOffetViewForm+cyEdge) + rtTab.top;
+		m_pDlgLaserSetting->SetWindowPos(NULL, rtDlg.left, rtDlg.top, rtDlg1.Width(), rtDlg1.Height(), SWP_NOZORDER | SWP_NOACTIVATE);
 	}
 }
 
@@ -236,6 +268,15 @@ void CRTR_ManagerView::InitDlg()
 		{
 			m_pDlgPunchingTorque->Create();
 			m_pDlgPunchingTorque->ShowWindow(SW_HIDE);
+		}
+	}
+	if (!m_pDlgLaserSetting)
+	{
+		m_pDlgLaserSetting = new CDlgLaserSetting(this);
+		if (m_pDlgLaserSetting->GetSafeHwnd() == 0)
+		{
+			m_pDlgLaserSetting->Create();
+			m_pDlgLaserSetting->ShowWindow(SW_HIDE);
 		}
 	}
 }

@@ -48,6 +48,9 @@
     <ClInclude Include="DlgItsOrigin.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="DlgLaserSetting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RTR_Manager.cpp">
@@ -71,6 +74,9 @@
     <ClCompile Include="DlgItsOrigin.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="DlgLaserSetting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RTR_Manager.rc">
@@ -90,6 +96,9 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="..\BMP\Case.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\BMP\SymbolSize.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

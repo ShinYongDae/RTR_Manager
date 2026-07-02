@@ -7,12 +7,14 @@
 #include "RTR_ManagerDoc.h"
 #include "DlgItsOrigin.h"
 #include "DlgPunchingTorque.h"
+#include "DlgLaserSetting.h"
 
 class CRTR_ManagerView : public CFormView
 {
 private:
 	CDlgItsOrigin* m_pDlgItsOrigin;
 	CDlgPunchingTorque* m_pDlgPunchingTorque;
+	CDlgLaserSetting* m_pDlgLaserSetting;
 	int m_nCurTab;
 	CFont m_FontOfTabCtrl;
 	BOOL m_bEnableWnd;

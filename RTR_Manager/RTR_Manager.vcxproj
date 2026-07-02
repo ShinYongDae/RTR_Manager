@@ -182,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DlgItsOrigin.h" />
+    <ClInclude Include="DlgLaserSetting.h" />
     <ClInclude Include="DlgPunchingTorque.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
@@ -194,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DlgItsOrigin.cpp" />
+    <ClCompile Include="DlgLaserSetting.cpp" />
     <ClCompile Include="DlgPunchingTorque.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="RTR_Manager.cpp" />
@@ -214,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\BMP\Case.bmp" />
+    <Image Include="..\BMP\SymbolSize.bmp" />
     <Image Include="res\RTR_Manager.ico" />
     <Image Include="res\RTR_ManagerDoc.ico" />
   </ItemGroup>

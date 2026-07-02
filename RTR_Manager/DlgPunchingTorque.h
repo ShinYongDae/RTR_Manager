@@ -366,7 +366,6 @@ protected:
 
 protected:
 	virtual BOOL OnInitDialog();
-	afx_msg void OnBnClickedBtnExit();
 	afx_msg void OnSelchangeComboModel();
 	afx_msg void OnSelchangeComboThickModel();
 	afx_msg void OnSelchangeComboThickUnit();
